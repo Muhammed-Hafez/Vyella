@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "Autography";
-  src: url("/fonts/Autography.otf") format("opentype");
+  src: url("/src/assets/fonts/Autography.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
