@@ -2169,6 +2169,10 @@ html[dir="rtl"] .pdp__size-meta {
 }
 
 @media (max-width: 680px) {
+  .pdp__grid {
+    display: block;
+  }
+
   .pdp__buy {
     display: block;
     gap: 12px;
@@ -2181,6 +2185,7 @@ html[dir="rtl"] .pdp__size-meta {
 
   .pdp__reserve {
     width: 100%;
+    padding: 10px;
   }
 }
 
@@ -2196,7 +2201,11 @@ html[dir="rtl"] .pdp__size-meta {
   }
 
   .pdp__reserve {
-    width: 100%;
+    padding: 10px;
+  }
+
+  .pdp__fam {
+    margin-block: 10px;
   }
 }
 
