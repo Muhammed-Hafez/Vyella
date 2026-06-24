@@ -17,146 +17,169 @@
    ---------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Jost:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
+@font-face {
+  font-family: "kefa";
+  src: url("/src/assets/fonts/KefaIII.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* ===================== Brand colors (kept) ===================== */
-  --vy-pink:        #FF5EB9;   /* hot bubblegum, signature */
-  --vy-green:       #006F51;   /* forest, signature */
+  --vy-pink: #ff5eb9; /* hot bubblegum, signature */
+  --vy-green: #006f51; /* forest, signature */
 
-  --vy-pink-soft:   #FD8CD7;
-  --vy-pink-light:  #FDA9F9;
-  --vy-pink-rose:   #E36C81;
-  --vy-lime:        #BEF400;
-  --vy-burgundy:    #670920;
-  --vy-blue:        #0F1FED;
-  --vy-gold:        #DFBD00;
-  --vy-tangerine:   #FFBE00;
-  --vy-yellow:      #F6EB00;
+  --vy-pink-soft: #fd8cd7;
+  --vy-pink-light: #fda9f9;
+  --vy-pink-rose: #e36c81;
+  --vy-lime: #bef400;
+  --vy-burgundy: #670920;
+  --vy-blue: #0f1fed;
+  --vy-gold: #dfbd00;
+  --vy-tangerine: #ffbe00;
+  --vy-yellow: #f6eb00;
 
   /* Neutrals */
-  --vy-charcoal:    #40444E;
-  --vy-ink:         #1B1A18;   /* warm near-black */
-  --vy-cream:       #FBF6EB;   /* unrefined wax */
-  --vy-cream-warm:  #F3ECDC;   /* baked cream */
-  --vy-paper:       #FFFFFF;
+  --vy-charcoal: #40444e;
+  --vy-ink: #1b1a18; /* warm near-black */
+  --vy-cream: #fbf6eb; /* unrefined wax */
+  --vy-cream-warm: #f3ecdc; /* baked cream */
+  --vy-paper: #ffffff;
 
   /* Soft brand tints — colorful but quiet (for backgrounds) */
-  --tint-pink:      #FDEEF6;   /* barely-there bubblegum */
-  --tint-pink-2:    #FBE3F0;
-  --tint-green:     #ECF3EE;   /* eucalyptus mist */
-  --tint-green-2:   #E0EDE4;
-  --tint-cream:     #F6F0E2;
-  --tint-butter:    #FBF3DC;   /* soft candied */
+  --tint-pink: #fdeef6; /* barely-there bubblegum */
+  --tint-pink-2: #fbe3f0;
+  --tint-green: #ecf3ee; /* eucalyptus mist */
+  --tint-green-2: #e0ede4;
+  --tint-cream: #f6f0e2;
+  --tint-butter: #fbf3dc; /* soft candied */
 
   /* ===================== Semantic foreground ===================== */
-  --fg:             var(--vy-ink);
-  --fg-muted:       #6A6862;
-  --fg-soft:        #9C988E;
-  --fg-invert:      var(--vy-cream);
+  --fg: var(--vy-ink);
+  --fg-muted: #6a6862;
+  --fg-soft: #9c988e;
+  --fg-invert: var(--vy-cream);
 
-  --accent:         var(--vy-pink);
-  --accent-2:       var(--vy-green);
+  --accent: var(--vy-pink);
+  --accent-2: var(--vy-green);
 
   /* Lines & soft shadows (replace hard offset shadows) */
-  --line:           rgba(27,26,24,0.10);
-  --line-soft:      rgba(27,26,24,0.07);
-  --line-strong:    rgba(27,26,24,0.22);
-  --shadow-sm:      0 1px 2px rgba(27,26,24,0.04), 0 4px 14px -8px rgba(27,26,24,0.14);
-  --shadow-md:      0 2px 6px rgba(27,26,24,0.05), 0 18px 40px -22px rgba(27,26,24,0.22);
-  --shadow-lg:      0 30px 70px -34px rgba(27,26,24,0.30);
+  --line: rgba(27, 26, 24, 0.1);
+  --line-soft: rgba(27, 26, 24, 0.07);
+  --line-strong: rgba(27, 26, 24, 0.22);
+  --shadow-sm:
+    0 1px 2px rgba(27, 26, 24, 0.04), 0 4px 14px -8px rgba(27, 26, 24, 0.14);
+  --shadow-md:
+    0 2px 6px rgba(27, 26, 24, 0.05), 0 18px 40px -22px rgba(27, 26, 24, 0.22);
+  --shadow-lg: 0 30px 70px -34px rgba(27, 26, 24, 0.3);
 
   /* ===================== Type families ===================== */
-  --font-display:   "Bagel Fat One", "Arial Black", system-ui, sans-serif;  /* WORDMARK ONLY */
-  --font-head:      "Jost", "Futura", "Helvetica Neue", system-ui, sans-serif;
-  --font-body:      "Jost", "Futura", "Helvetica Neue", system-ui, sans-serif;
-  --font-script:    "Caveat", "Brush Script MT", cursive;
-  --font-mono:      "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display:
+    "Bagel Fat One", "Arial Black", system-ui, sans-serif; /* WORDMARK ONLY */
+  --font-head: "kefa", "Jost", system-ui, sans-serif;
+  --font-body: "kefa", system-ui, sans-serif;
+  --font-script: "kefa", cursive;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* ===================== Type scale ===================== */
-  --fs-d1:   clamp(56px, 8vw, 132px);
-  --fs-d2:   clamp(40px, 5vw, 92px);
-  --fs-h1:   clamp(34px, 4vw, 60px);
-  --fs-h2:   clamp(28px, 3.2vw, 46px);
-  --fs-h3:   24px;
-  --fs-h4:   19px;
+  --fs-d1: clamp(56px, 8vw, 132px);
+  --fs-d2: clamp(40px, 5vw, 92px);
+  --fs-h1: clamp(34px, 4vw, 60px);
+  --fs-h2: clamp(28px, 3.2vw, 46px);
+  --fs-h3: 24px;
+  --fs-h4: 19px;
   --fs-lead: 21px;
   --fs-body: 17px;
-  --fs-small:14px;
+  --fs-small: 14px;
   --fs-eyebrow: 12px;
 
   /* ===================== Spacing / radius ===================== */
-  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
-  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
-  --space-9: 96px; --space-10: 128px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
 
-  --radius-xs: 6px;  --radius-sm: 10px; --radius-md: 16px;
-  --radius-lg: 22px; --radius-xl: 30px; --radius-pill: 999px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-pill: 999px;
 
   /* ===================== Per-direction theme vars (defaults = A) ===================== */
-  --page-bg:        var(--vy-cream);   /* default page background */
-  --band-a:         var(--vy-cream);   /* alternating section bands */
-  --band-b:         var(--vy-paper);
-  --band-feature:   var(--vy-ink);     /* one dark feature moment */
+  --page-bg: var(--vy-cream); /* default page background */
+  --band-a: var(--vy-cream); /* alternating section bands */
+  --band-b: var(--vy-paper);
+  --band-feature: var(--vy-ink); /* one dark feature moment */
   --band-soft-pink: var(--vy-cream);
-  --band-soft-green:var(--vy-cream);
+  --band-soft-green: var(--vy-cream);
 
-  --card-bg:        var(--vy-paper);
-  --card-border:    1px solid var(--line);
-  --card-radius:    var(--radius-lg);
-  --card-shadow:    none;
+  --card-bg: var(--vy-paper);
+  --card-border: 1px solid var(--line);
+  --card-radius: var(--radius-lg);
+  --card-shadow: none;
   --card-shadow-hover: var(--shadow-md);
-  --media-bg:       var(--vy-cream-warm);
+  --media-bg: var(--vy-cream-warm);
 
-  --head-weight:    500;
+  --head-weight: 500;
   --head-transform: lowercase;
-  --head-spacing:   -0.02em;
+  --head-spacing: -0.02em;
 
-  --tag-bg:         rgba(27,26,24,0.06);
-  --tag-color:      var(--vy-ink);
-  --btn-radius:     var(--radius-pill);
+  --tag-bg: rgba(27, 26, 24, 0.06);
+  --tag-color: var(--vy-ink);
+  --btn-radius: var(--radius-pill);
 }
 
 /* ----- Direction A · STUDIO (editorial, near-monochrome) ----- */
 html[data-dir="a"] {
-  --page-bg:        var(--vy-cream);
-  --band-a:         var(--vy-cream);
-  --band-b:         var(--vy-paper);
-  --band-feature:   var(--vy-ink);
+  --page-bg: var(--vy-cream);
+  --band-a: var(--vy-cream);
+  --band-b: var(--vy-paper);
+  --band-feature: var(--vy-ink);
   --band-soft-pink: var(--vy-cream);
-  --band-soft-green:var(--vy-paper);
+  --band-soft-green: var(--vy-paper);
 
-  --card-bg:        var(--vy-paper);
-  --card-border:    1px solid var(--line-soft);
-  --card-shadow:    none;
+  --card-bg: var(--vy-paper);
+  --card-border: 1px solid var(--line-soft);
+  --card-shadow: none;
   --card-shadow-hover: var(--shadow-md);
 
-  --head-weight:    500;
-  --head-spacing:   -0.025em;
-  --tag-bg:         rgba(27,26,24,0.05);
-  --tag-color:      var(--vy-ink);
+  --head-weight: 500;
+  --head-spacing: -0.025em;
+  --tag-bg: rgba(27, 26, 24, 0.05);
+  --tag-color: var(--vy-ink);
 }
 
 /* ----- Direction B · PATISSERIE (warm, soft-color bands) ----- */
 html[data-dir="b"] {
-  --page-bg:        var(--vy-cream);
-  --band-a:         var(--vy-cream);
-  --band-b:         var(--tint-cream);
-  --band-feature:   var(--vy-green);
+  --page-bg: var(--vy-cream);
+  --band-a: var(--vy-cream);
+  --band-b: var(--tint-cream);
+  --band-feature: var(--vy-green);
   --band-soft-pink: var(--tint-pink);
-  --band-soft-green:var(--tint-green);
+  --band-soft-green: var(--tint-green);
 
-  --card-bg:        var(--vy-paper);
-  --card-border:    1px solid var(--line);
-  --card-shadow:    var(--shadow-sm);
+  --card-bg: var(--vy-paper);
+  --card-border: 1px solid var(--line);
+  --card-shadow: var(--shadow-sm);
   --card-shadow-hover: var(--shadow-md);
 
-  --head-weight:    600;
-  --head-spacing:   -0.02em;
-  --tag-bg:         var(--vy-pink);
-  --tag-color:      var(--vy-ink);
+  --head-weight: 600;
+  --head-spacing: -0.02em;
+  --tag-bg: var(--vy-pink);
+  --tag-color: var(--vy-ink);
 }
 
 /* ===================== Base ===================== */
-html, body {
+html,
+body {
   background: var(--page-bg);
   color: var(--fg);
   font-family: var(--font-body);
@@ -167,32 +190,83 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--vy-pink); color: var(--vy-ink); }
+::selection {
+  background: var(--vy-pink);
+  color: var(--vy-ink);
+}
 
 /* Headings — clean Jost. (The wordmark uses --font-display via .nav__logo etc.) */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-head);
   color: var(--vy-ink);
   margin: 0;
 }
-h1 { font-size: var(--fs-h1); font-weight: var(--head-weight); line-height: 1.02; letter-spacing: var(--head-spacing); text-transform: var(--head-transform); }
-h2 { font-size: var(--fs-h2); font-weight: var(--head-weight); line-height: 1.05; letter-spacing: var(--head-spacing); text-transform: var(--head-transform); }
-h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 1.18; letter-spacing: -0.01em; }
-h4 { font-size: var(--fs-h4); font-weight: 600; line-height: 1.25; }
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--head-weight);
+  line-height: 1.02;
+  letter-spacing: var(--head-spacing);
+  text-transform: var(--head-transform);
+}
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--head-weight);
+  line-height: 1.05;
+  letter-spacing: var(--head-spacing);
+  text-transform: var(--head-transform);
+}
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+h4 {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.25;
+}
 
-p  { font-size: var(--fs-body); line-height: 1.6; }
-.lead { font-size: var(--fs-lead); line-height: 1.5; color: var(--fg-muted); }
+p {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-weight: 500; font-size: var(--fs-eyebrow);
-  letter-spacing: 0.22em; text-transform: uppercase;
+  font-family: "Autography", cursive;
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--vy-pink);
 }
-.script  { font-family: var(--font-script); font-weight: 600; }
-.mono    { font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.04em; }
+.script {
+  font-family: var(--font-script);
+  font-weight: 600;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+}
 
-a { color: var(--vy-green); text-decoration: none; }
-a:hover { color: var(--vy-pink); }
+a {
+  color: var(--vy-green);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--vy-pink);
+}
 
-code, pre { font-family: var(--font-mono); }
+code,
+pre {
+  font-family: var(--font-mono);
+}

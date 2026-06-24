@@ -2,7 +2,7 @@
    Vyella® — app shell: announcement, nav + utility bar, hash router, mount
    ========================================================================== */
 
-const { useState, useEffect, useCallback } = React;
+const { useState, useEffect, useCallback, useRef } = React;
 const { t, Icon, Btn, SocialIcons } = window;
 const {
   Hero,
@@ -18,6 +18,7 @@ const {
   Footer,
   ProductPage,
   CustomisePage,
+  ShopPage,
 } = window;
 
 /* ---- marquee ---- */
@@ -44,11 +45,121 @@ function useHashRoute() {
   return hash;
 }
 
+/* ---- utility dropdown (currency / language) ---- */
+function UtilitySelect({
+  value,
+  options,
+  onChange,
+  ariaLabel,
+  icon,
+  className = "",
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e) => {
+      if (!ref.current?.contains(e.target)) setOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const selected = options.find((o) => o.value === value);
+  const label = selected?.label ?? value;
+
+  return (
+    <div
+      className={`util-select ${icon ? "util-select--icon" : ""} ${open ? "is-open" : ""} ${className}`}
+      ref={ref}
+    >
+      <button
+        type="button"
+        className="util-select__trigger"
+        aria-label={`${ariaLabel}: ${label}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {icon ? (
+          <Icon name={icon} size={17} />
+        ) : (
+          <>
+            <span className="util-select__value">{label}</span>
+            <span className="util-select__caret" aria-hidden="true" />
+          </>
+        )}
+      </button>
+      {open && (
+        <ul className="util-select__menu" role="listbox" aria-label={ariaLabel}>
+          {options.map((opt) => (
+            <li key={opt.value} role="presentation">
+              <button
+                type="button"
+                role="option"
+                aria-selected={value === opt.value}
+                className={`util-select__option ${value === opt.value ? "is-active" : ""}`}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/* ---- currency auto-detection (first visit only) ---- */
+async function detectDefaultCurrency() {
+  try {
+    const res = await fetch("https://ipapi.co/json/", {
+      signal: AbortSignal.timeout(4000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.country_code === "EG") return "EGP";
+      if (data.country_code === "AE") return "AED";
+    }
+  } catch (_) {}
+
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz === "Africa/Cairo") return "EGP";
+    if (tz === "Asia/Dubai") return "AED";
+  } catch (_) {}
+
+  const locales = [navigator.language, ...(navigator.languages || [])];
+  for (const loc of locales) {
+    const region = loc.split("-")[1]?.toUpperCase();
+    if (region === "EG") return "EGP";
+    if (region === "AE") return "AED";
+  }
+
+  return "AED";
+}
+
 /* ---- top bar (announcement + nav + utility) ---- */
 function TopBar({ lang, setLang, cur, setCur, go }) {
   const C = window.VyellaContent;
   const [mobile, setMobile] = useState(false);
   const currencies = ["AED", "USD", "EGP"];
+  const languages = [
+    { value: "en", label: "English" },
+    { value: "ar", label: "Arabic" },
+  ];
 
   const navTo = (target) => {
     setMobile(false);
@@ -70,23 +181,22 @@ function TopBar({ lang, setLang, cur, setCur, go }) {
           </div>
           <div className="utility__center">{t(C.footer.blurb, lang)}</div>
           <div className="utility__side utility__right">
-            <div className="cur-switch" role="group" aria-label="currency">
-              {currencies.map((x) => (
-                <button
-                  key={x}
-                  className={`cur-switch__btn ${cur === x ? "is-active" : ""}`}
-                  onClick={() => setCur(x)}
-                >
-                  {x}
-                </button>
-              ))}
-            </div>
-            <button
-              className="lang-btn"
-              onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            >
-              {t(C.ui.langSwitch, lang)}
-            </button>
+            <UtilitySelect
+              value={cur}
+              options={currencies.map((x) => ({ value: x, label: x }))}
+              onChange={setCur}
+              ariaLabel="Currency"
+              icon="currency"
+              className="util-select--cur"
+            />
+            <UtilitySelect
+              value={lang}
+              options={languages}
+              onChange={setLang}
+              ariaLabel="Language"
+              icon="globe"
+              className="util-select--lang"
+            />
           </div>
         </div>
       </div>
@@ -219,7 +329,7 @@ function Home({ lang, cur, go }) {
       <Hero lang={lang} cur={cur} go={go} />
       <Trust lang={lang} />
       <About lang={lang} />
-      <Products lang={lang} cur={cur} go={go} />
+      <Products lang={lang} cur={cur} go={go} isHomePreview />
       <Process lang={lang} />
       <Stats lang={lang} />
       <Press lang={lang} />
@@ -232,12 +342,38 @@ function Home({ lang, cur, go }) {
 
 /* ---- app ---- */
 function App() {
-  const [lang, setLang] = useState(
+  const [lang, setLangState] = useState(
     () => localStorage.getItem("vy-lang") || "en",
   );
-  const [cur, setCur] = useState(() => localStorage.getItem("vy-cur") || "AED");
+  const [cur, setCurState] = useState(
+    () => localStorage.getItem("vy-cur") || "AED",
+  );
   const [dir, setDir] = useState(() => localStorage.getItem("vy-dir") || "b");
   const hash = useHashRoute();
+
+  const setLang = useCallback((value) => {
+    setLangState(value);
+    localStorage.setItem("vy-lang", value);
+  }, []);
+
+  const setCur = useCallback((value) => {
+    setCurState(value);
+    localStorage.setItem("vy-cur", value);
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("vy-cur")) return;
+
+    let cancelled = false;
+    detectDefaultCurrency().then((detected) => {
+      if (cancelled || localStorage.getItem("vy-cur")) return;
+      setCur(detected);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [setCur]);
 
   useEffect(() => {
     document.documentElement.dataset.dir = dir;
@@ -247,11 +383,7 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    localStorage.setItem("vy-lang", lang);
   }, [lang]);
-  useEffect(() => {
-    localStorage.setItem("vy-cur", cur);
-  }, [cur]);
 
   // navigation helper: routes start with #/, in-page anchors are #section
   const go = useCallback((target) => {
@@ -289,21 +421,10 @@ function App() {
   } else if (hash === "#/customise") {
     view = <CustomisePage lang={lang} cur={cur} go={go} />;
   } else if (hash === "#/shop") {
-    view = <Home lang={lang} cur={cur} go={go} />;
-    // scroll to shop after mount
+    view = <ShopPage lang={lang} cur={cur} go={go} />;
   } else {
     view = <Home lang={lang} cur={cur} go={go} />;
   }
-
-  // when navigating to #/shop, scroll to the shop section
-  useEffect(() => {
-    if (hash === "#/shop") {
-      setTimeout(() => {
-        const el = document.getElementById("shop");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 60);
-    }
-  }, [hash]);
 
   return (
     <>
