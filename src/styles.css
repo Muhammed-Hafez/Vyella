@@ -2168,6 +2168,22 @@ html[dir="rtl"] .pdp__size-meta {
   align-items: stretch;
 }
 
+@media (max-width: 680px) {
+  .pdp__buy {
+    display: block;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .pdp__qty {
+    margin-block: 10px;
+  }
+
+  .pdp__reserve {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .pdp__buy {
     display: block;
@@ -2183,6 +2199,7 @@ html[dir="rtl"] .pdp__size-meta {
     width: 100%;
   }
 }
+
 .pdp__qty {
   display: inline-flex;
   align-items: center;
