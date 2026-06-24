@@ -697,7 +697,7 @@ html[dir="rtl"] .hero__sub {
 
 .hero__photo {
   position: relative;
-  width: 100vw;
+  width: 100%;
   max-width: 100vw;
   margin-top: 32px;
   margin-left: calc(50% - 50vw);
