@@ -20,19 +20,19 @@ window.VyellaContent = {
   /* ---- top announcement ---- */
   announce: {
     en: "🕯  new in 2026  ·  handmade dessert candles, shipped across the uae & egypt  ·  every candle 50 aed  ·  reserve yours now  ·  ",
-    ar: "🕯  جديد ٢٠٢٦  ·  شموع ديزرت هاند ميد، شحن لكل الإمارات ومصر  ·  كل شمعة بـ ٥٠ درهم  ·  احجزي شمعتك دلوقتي  ·  ",
+    ar: "🕯  جديد ٢٠٢٦  ·  شموع ديزرت هاند ميد، شحن لكل الإمارات ومصر  ·  كل شمعة بـ ٥٠ درهم  ·  احجز شمعتك دلوقتي  ·  ",
   },
 
   /* ---- utility / nav ---- */
   ui: {
     langSwitch: { en: "العربية", ar: "EN" },
-    reserve: { en: "reserve", ar: "احجزي" },
-    reserveThis: { en: "reserve this candle", ar: "احجزي الشمعة دي" },
-    viewDetails: { en: "view candle", ar: "شوفي التفاصيل" },
+    reserve: { en: "reserve", ar: "احجز" },
+    reserveThis: { en: "reserve this candle", ar: "احجز الشمعة دي" },
+    viewDetails: { en: "view candle", ar: "شوف التفاصيل" },
     from: { en: "from", ar: "يبدأ من" },
-    back: { en: "back to shop", ar: "ارجعي للمتجر" },
-    customize: { en: "customise it", ar: "اعمليها بطريقتك" },
-    shopAll: { en: "shop all candles", ar: "تسوقي كل الشموع" },
+    back: { en: "back to shop", ar: "ارجع للمتجر" },
+    customize: { en: "customise it", ar: "اعملها بطريقتك" },
+    shopAll: { en: "shop all candles", ar: "تسوق كل الشموع" },
     menu: { en: "menu", ar: "القائمة" },
   },
 
@@ -41,20 +41,20 @@ window.VyellaContent = {
     shop: { en: "shop", ar: "المتجر" },
     custom: { en: "customise", ar: "تخصيص" },
     process: { en: "how it's made", ar: "طريقة الصنع" },
-    contact: { en: "contact", ar: "تواصلي" },
+    contact: { en: "contact", ar: "تواصل" },
   },
 
   /* ============================ 1 · HERO ============================ */
   hero: {
     wordmark: "vyella",
     slogan1: { en: "too pretty to burn.", ar: "أحلى من إنها تتولّع." },
-    slogan2: { en: "burn it anyway.", ar: "ولّعيها برضه." },
+    slogan2: { en: "burn it anyway.", ar: "ولّعها برضه." },
     sub: {
       en: "Handmade dessert candles, poured by hand in Dubai. Natural soy & gel wax, shipped across the UAE and Egypt.",
       ar: "شموع ديزرت هاند ميد، مصبوبة بإيدينا في دبي. شمع صويا وجل طبيعي، وشحن لكل الإمارات ومصر.",
     },
-    ctaShop: { en: "shop the candles", ar: "تسوقي الشموع" },
-    ctaCustom: { en: "design your own", ar: "صمّمي شمعتك" },
+    ctaShop: { en: "shop the candles", ar: "تسوق الشموع" },
+    ctaCustom: { en: "design your own", ar: "صمّم شمعتك" },
   },
 
   /* ============================ 2 · ABOUT ============================ */
@@ -81,7 +81,7 @@ window.VyellaContent = {
     tabs: {
       newArrivals: { en: "new arrivals", ar: "وصل حديثاً" },
       bestSellers: { en: "best sellers", ar: "الأكثر مبيعاً" },
-      byScent: { en: "shop by scent", ar: "تسوقي حسب الريحة" },
+      byScent: { en: "shop by scent", ar: "تسوق حسب الريحة" },
     },
     scentFamilies: {
       all: { en: "all", ar: "الكل" },
@@ -91,13 +91,13 @@ window.VyellaContent = {
       rich: { en: "rich & decadent", ar: "غني وفخم" },
     },
     customBanner: {
-      eyebrow: { en: "MAKE IT YOURS", ar: "اعمليها بطريقتك" },
-      title: { en: "design your own candle", ar: "صمّمي شمعتك بنفسك" },
+      eyebrow: { en: "MAKE IT YOURS", ar: "اعملها بطريقتك" },
+      title: { en: "design your own candle", ar: "صمّم شمعتك بنفسك" },
       body: {
         en: "Pick the size, choose the scent, and set the shape and colours. Custom dessert candles for weddings, birthdays, and brand gifting across the UAE.",
         ar: "اختاري الحجم، حدّدي الريحة، وظبطي الشكل والألوان. شموع ديزرت مخصّصة للأفراح وأعياد الميلاد وهدايا البراندات في كل الإمارات.",
       },
-      cta: { en: "start customising", ar: "ابدئي التخصيص" },
+      cta: { en: "start customising", ar: "ابدء التخصيص" },
     },
   },
 
@@ -351,11 +351,11 @@ window.VyellaContent = {
     },
     customizeToggle: {
       en: "make it custom instead",
-      ar: "عايزاها مخصّصة بدل كده",
+      ar: "عايزها مخصّصة بدل كده",
     },
     customizeHint: {
       en: "change the scent, colours, or shape — we'll quote you back.",
-      ar: "غيّري الريحة أو الألوان أو الشكل — وهنبعتلك السعر.",
+      ar: "غيّر الريحة أو الألوان أو الشكل — وهنبعتلك السعر.",
     },
     trust1: { en: "handmade to order", ar: "هاند ميد حسب الطلب" },
     trust2: { en: "1–3 day uae delivery", ar: "توصيل ١–٣ أيام بالإمارات" },
@@ -375,7 +375,7 @@ window.VyellaContent = {
     steps: [
       {
         no: "01",
-        label: { en: "pick a size", ar: "اختاري الحجم" },
+        label: { en: "pick a size", ar: "اختار الحجم" },
         body: {
           en: "Petit, Classic, or Grand — from 4oz keepsakes to 8oz statement pieces.",
           ar: "صغير، وسط، أو كبير — من ٤ أونصة تذكارية لـ ٨ أونصة لافتة.",
@@ -383,7 +383,7 @@ window.VyellaContent = {
       },
       {
         no: "02",
-        label: { en: "choose a scent", ar: "حدّدي الريحة" },
+        label: { en: "choose a scent", ar: "حدّد الريحة" },
         body: {
           en: "From sweet & creamy to rich & decadent — mix two if you like.",
           ar: "من الحلو الكريمي للغني الفخم — اخلطي اتنين لو حابة.",
@@ -391,14 +391,14 @@ window.VyellaContent = {
       },
       {
         no: "03",
-        label: { en: "set the look", ar: "ظبطي الشكل" },
+        label: { en: "set the look", ar: "ظبط الشكل" },
         body: {
           en: "Shape, colours, and finishing touches — tell us your vibe.",
           ar: "الشكل والألوان واللمسات الأخيرة — قوليلنا على الفايب.",
         },
       },
     ],
-    cta: { en: "start your custom candle", ar: "ابدئي شمعتك المخصّصة" },
+    cta: { en: "start your custom candle", ar: "ابدء شمعتك المخصّصة" },
   },
 
   /* ============================ 5 · PROCESS / STEPS ============================ */
@@ -503,7 +503,7 @@ window.VyellaContent = {
   /* ============================ 9 · FAQ ============================ */
   faq: {
     eyebrow: { en: "FAQ", ar: "أسئلة شائعة" },
-    title: { en: "good to know.", ar: "حاجات تحبي تعرفيها." },
+    title: { en: "good to know.", ar: "حاجات تحب تعرفها." },
     items: [
       {
         q: {
@@ -529,7 +529,7 @@ window.VyellaContent = {
         },
         a: {
           en: "Absolutely — that's our favourite part. Use the customise option on any candle and we'll quote you back.",
-          ar: "أكيد — ده أحلى جزء عندنا. استخدمي خيار التخصيص على أي شمعة وهنبعتلك السعر.",
+          ar: "أكيد — ده أحلى جزء عندنا. استخدم خيار التخصيص على أي شمعة وهنبعتلك السعر.",
         },
       },
       {
@@ -566,8 +566,8 @@ window.VyellaContent = {
 
   /* ============================ 11 · CONTACT ============================ */
   contact: {
-    eyebrow: { en: "ORDER & CONTACT", ar: "اطلبي وتواصلي" },
-    title: { en: "come say hi.", ar: "تعالي سلّمي علينا." },
+    eyebrow: { en: "ORDER & CONTACT", ar: "اطلب وتواصل" },
+    title: { en: "come say hi.", ar: "تعالى سلّم علينا." },
     studioLabel: { en: "BASED IN", ar: "موجودين في" },
     studio: {
       l1: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -589,7 +589,7 @@ window.VyellaContent = {
     phone: "+971 50 412 3389",
     emailLabel: { en: "EMAIL", ar: "إيميل" },
     email: "hello@vyella.co",
-    socialLabel: { en: "FOLLOW", ar: "تابعينا" },
+    socialLabel: { en: "FOLLOW", ar: "تابعنا" },
     mapCaption: {
       en: "Dubai, UAE · we ship UAE & Egypt",
       ar: "دبي، الإمارات · بنشحن للإمارات ومصر",
@@ -601,7 +601,7 @@ window.VyellaContent = {
   footer: {
     tag: {
       en: "too pretty to burn.\nburn it anyway. 🕯",
-      ar: "أحلى من إنها تتولّع.\nولّعيها برضه. 🕯",
+      ar: "أحلى من إنها تتولّع.\nولّعها برضه. 🕯",
     },
     blurb: {
       en: "Handmade dessert candles · Dubai, UAE",

@@ -1335,8 +1335,7 @@ html[dir="rtl"] .stats__label {
 .press {
   opacity: 0;
 }
-.press__inner {
-}
+
 .press__eyebrow {
   color: var(--fg-soft);
 }
