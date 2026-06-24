@@ -2176,6 +2176,9 @@ html[dir="rtl"] .pdp__size-meta {
 
   .pdp__qty {
     margin-block: 10px;
+  }
+
+  .pdp__reserve {
     width: 100%;
   }
 }
