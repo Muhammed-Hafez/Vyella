@@ -2172,6 +2172,7 @@ html[dir="rtl"] .pdp__size-meta {
   .pdp__buy {
     display: block;
     gap: 12px;
+    width: 100%;
   }
 
   .pdp__qty {
