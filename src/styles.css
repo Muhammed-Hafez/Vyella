@@ -835,7 +835,6 @@ html[data-dir="a"] .about {
   box-shadow: var(--shadow-md);
 }
 .about__media > image-slot {
-  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 .about__st {
