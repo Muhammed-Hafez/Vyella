@@ -41,13 +41,7 @@ function Icon({ name, size = 24, stroke = 2.2 }) {
         <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
       </>
     ),
-    tiktok: (
-      <path
-        d="M14 4c0 3 2.2 5.2 5 5.4V13c-1.9 0-3.6-.6-5-1.6V16a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1V14a2.6 2.6 0 1 0 1.8 2.5V4h2.8z"
-        fill="currentColor"
-        stroke="none"
-      />
-    ),
+
     pinterest: (
       <>
         <circle cx="12" cy="12" r="9" {...p} />

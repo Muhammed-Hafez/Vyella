@@ -2482,6 +2482,7 @@ html[dir="rtl"] .cz__est-label {
   padding: 6px;
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-lg);
+  display: none;
 }
 .dirswitch__label {
   font-family: var(--font-mono);

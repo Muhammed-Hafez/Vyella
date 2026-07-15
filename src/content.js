@@ -19,8 +19,8 @@ window.VyellaContent = {
 
   /* ---- top announcement ---- */
   announce: {
-    en: "🕯  new in 2026  ·  handmade dessert candles, shipped across the uae & egypt  ·  every candle 50 aed  ·  reserve yours now  ·  ",
-    ar: "🕯  جديد ٢٠٢٦  ·  شموع ديزرت هاند ميد، شحن لكل الإمارات ومصر  ·  كل شمعة بـ ٥٠ درهم  ·  احجز شمعتك دلوقتي  ·  ",
+    en: "🕯  new in 2026  ·  handmade dessert candles, shipped across the GCC & Egypt  ·  reserve yours now  ·  ",
+    ar: "🕯  جديد ٢٠٢٦  ·  شموع ديزرت هاند ميد، شحن لكل دول الخليج ومصر  · احجز شمعتك دلوقتي  ·  ",
   },
 
   /* ---- utility / nav ---- */
@@ -50,8 +50,8 @@ window.VyellaContent = {
     slogan1: { en: "too pretty to burn.", ar: "أحلى من إنها تتولّع." },
     slogan2: { en: "burn itanyway.", ar: "ولّعها برضه." },
     sub: {
-      en: "Handmade dessert candles, poured by hand in Dubai. Natural soy & gel wax, shipped across the UAE and Egypt.",
-      ar: "شموع ديزرت هاند ميد، مصبوبة بإيدينا في دبي. شمع صويا وجل طبيعي، وشحن لكل الإمارات ومصر.",
+      en: "Handmade dessert candles, poured by hand in Dubai. Natural soy & gel wax, shipped across the GCC and Egypt.",
+      ar: "شموع ديزرت هاند ميد، مصبوبة بإيدينا في دبي. شمع صويا وجل طبيعي، وشحن لكل دول الخليج ومصر.",
     },
     ctaShop: { en: "shop the candles", ar: "تسوق الشموع" },
     ctaCustom: { en: "design your own", ar: "صمّم شمعتك" },
@@ -110,7 +110,7 @@ window.VyellaContent = {
       scent: { en: "Raspberries", ar: "التوت الاحمر" },
       family: "sweet",
       flags: ["bestseller"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A flaky croissant candle, hand-sculpted and crowned with whipped wax cream, plump raspberries and caramelised pastry curls. Buttery vanilla meets bright raspberry — bakery-fresh, and far too pretty to burn.",
         ar: "شمعة كرواسون مقرمشة منحوتة بالإيد، فوقها كريمة شمع وتوت ممتلئ وقطع باتيه بالكراميل. زبدة وفانيليا مع توت منعش — ريحة فرن طازة، وأحلى من إنها تتولّع.",
@@ -128,7 +128,7 @@ window.VyellaContent = {
       scent: { en: "Caramel Cookie", ar: "كاراميل كوكي" },
       family: "rich",
       flags: ["new"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A fully-loaded chocolate-chip cookie candle, piled with a chocolate square, a mini biscuit, a wax strawberry and a swirl of cream. Warm milk chocolate over soft cookie dough — dessert you light, not eat.",
         ar: "شمعة كوكيز بالشيكولاتة محمّلة بالكامل، عليها مربع شيكولاتة وبسكوتة صغيرة وفراولة شمع ولفة كريمة. شيكولاتة بالحليب دافية فوق عجينة كوكيز ناعمة — ديزرت بتولّعيه مش بتاكليه.",
@@ -149,7 +149,7 @@ window.VyellaContent = {
       },
       family: "rich",
       flags: ["bestseller"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A hand-poured cheesecake slice candle, finished with cream swirls, fresh raspberries and a sprig of mint. Smooth vanilla cheesecake on a biscuit base — creamy, calm, and gift-ready.",
         ar: "شريحة تشيز كيك مصبوبة بالإيد، عليها كريمة وتوت طازة وورقة نعناع. تشيز كيك فانيليا ناعم على قاعدة بسكوت — كريمي وهادي وجاهز كهدية.",
@@ -167,7 +167,7 @@ window.VyellaContent = {
       scent: { en: "Candy", ar: "كاندي" },
       family: "sweet",
       flags: ["new"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A scoop of pink guava sorbet candle resting on a soft shortcake, with a sugared lime slice on top. Juicy pink guava lifted by zesty lime — fresh, fruity and a little playful.",
         ar: "كورة سوربيه جوافة وردي فوق شورت كيك طري، وعليها شريحة ليمون مسكّرة. جوافة وردي منعشة مع ليمون حامض خفيف — فواكه فريش وشقية شوية.",
@@ -185,7 +185,7 @@ window.VyellaContent = {
       scent: { en: "Lemon & Mint", ar: "ليمون و نعناع" },
       family: "warm",
       flags: [],
-      base: 50,
+      base: 40,
       desc: {
         en: "A stacked French toast candle, dusted with sugar and topped with whipped wax cream and blueberries. Warm maple and toasty brioche with a berry finish — a cosy morning in candle form.",
         ar: "شمعة فرنش توست متراصّة، مرشوشة سكر وفوقها كريمة شمع وبلوبيري. ميبل دافي وبريوش محمّص بلمسة توت — صباح دافي على هيئة شمعة.",
@@ -203,7 +203,7 @@ window.VyellaContent = {
       scent: { en: "Rose", ar: "ورد" },
       family: "rich",
       flags: [],
-      base: 50,
+      base: 40,
       desc: {
         en: "A rich cocoa waffle candle loaded with whipped cream, blueberries and a sugared lime. Deep chocolate waffle balanced by bright berries — indulgent without trying too hard.",
         ar: "شمعة وافل كاكاو غنية محمّلة بكريمة وبلوبيري وليمون مسكّر. وافل شيكولاتة عميق مع توت منعش — غني من غير مبالغة.",
@@ -221,7 +221,7 @@ window.VyellaContent = {
       scent: { en: "Raspberries", ar: "توت أحمر" },
       family: "rich",
       flags: ["new"],
-      base: 50,
+      base: 55,
       desc: {
         en: "A layered parfait candle poured in a glass — coffee-soaked sponge, cream and cocoa, finished with wax raspberries. Deep espresso and cocoa for everyone who runs on coffee.",
         ar: "شمعة بارفيه طبقات مصبوبة في كوباية — كيك مشبّع بالقهوة وكريمة وكاكاو، وفوقها توت شمع. إسبريسو وكاكاو غامق لكل اللي عايشين على القهوة.",
@@ -239,7 +239,7 @@ window.VyellaContent = {
       scent: { en: "Vanilla", ar: " فانيليا" },
       family: "fruity",
       flags: ["bestseller"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A mini strawberry cake candle with a glossy berry drip and whole wax strawberries on top. Sweet ripe strawberry over soft vanilla — the little cake you never have to slice.",
         ar: "شمعة تورتة فراولة صغيرة بطبقة توت لامعة وفراولة شمع كاملة فوق. فراولة حلوة ناضجة فوق فانيليا ناعمة — التورتة الصغيرة اللي مش هتحتاجي تقطعيها أبداً.",
@@ -257,7 +257,7 @@ window.VyellaContent = {
       scent: { en: "Oud", ar: "عود" },
       family: "rich",
       flags: ["new"],
-      base: 50,
+      base: 40,
       desc: {
         en: "A decadent cheesecake slice candle drenched in caramel, piled with cocoa crunch, a chocolate square and a Biscoff biscuit. Spiced caramel biscuit meets creamy cheesecake — pure dessert drama.",
         ar: "شريحة تشيز كيك فخمة مغطّسة في كراميل، وفوقها كرانش كاكاو ومربع شيكولاتة وبسكوتة بسكوف. بسكوت كراميل متبّل مع تشيز كيك كريمي — ديزرت دراما بجد.",
@@ -275,7 +275,7 @@ window.VyellaContent = {
       scent: { en: "Lavender", ar: "لافندر" },
       family: "sweet",
       flags: ["new"],
-      base: 50,
+      base: 55,
       desc: {
         en: "A dreamy purple ube parfait candle, layered in a glass with coconut cream and sweet ube swirls. Soft, nutty ube and creamy coconut — the prettiest purple in the shop.",
         ar: "شمعة بارفيه أوبي بنفسجية حالمة، طبقات في كوباية مع كريمة جوز هند ولفّات أوبي حلوة. أوبي ناعم بطعم مكسرات وكريمة جوز هند — أحلى بنفسجي في المتجر.",
@@ -293,7 +293,7 @@ window.VyellaContent = {
       scent: { en: "Coffee", ar: "قهوة" },
       family: "warm",
       flags: ["bestseller"],
-      base: 50,
+      base: 55,
       desc: {
         en: "An iced coffee candle in a glass tumbler, complete with wax ice cubes and a wooden wick that crackles as it burns. Smooth cold brew softened with vanilla — your favourite order, on a shelf.",
         ar: "شمعة آيس كوفي في كباية زجاج، بمكعبات تلج شمع وفتيلة خشب بتطقطق وهي بتولّع. كولد برو ناعم مع فانيليا — أوردرك المفضّل، بس على الرف.",
@@ -311,7 +311,7 @@ window.VyellaContent = {
       scent: { en: "Vanilla Matcha Latte", ar: "ماتشا لاتيه فانيليا" },
       family: "sweet",
       flags: ["new"],
-      base: 50,
+      base: 55,
       desc: {
         en: "An iced matcha latte candle, poured a soft sage green with wax ice cubes and a wooden wick. Earthy matcha rounded off with vanilla cream — calm in a glass.",
         ar: "شمعة آيس ماتشا لاتيه، مصبوبة بلون أخضر سيج ناعم بمكعبات تلج شمع وفتيلة خشب. ماتشا بطعم ترابي مع كريمة فانيليا — هدوء في كباية.",
@@ -338,7 +338,7 @@ window.VyellaContent = {
       label: { en: "Grand", ar: "كبير" },
       oz: "4 oz / 113g",
       hrs: "20–25",
-      delta: 10,
+      delta: 15,
     },
   ],
 
@@ -639,7 +639,7 @@ window.VyellaContent = {
       { d: { en: "FRI", ar: "الجمعة" }, t: { en: "14 — 19", ar: "١٤ — ١٩" } },
     ],
     phoneLabel: { en: "PHONE & WHATSAPP", ar: "تليفون وواتساب" },
-    phone: "+971 50 412 3389",
+    phone: "+971 582207509",
     emailLabel: { en: "EMAIL", ar: "إيميل" },
     email: "hello@vyella.co",
     socialLabel: { en: "FOLLOW", ar: "تابعنا" },
