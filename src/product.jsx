@@ -3,15 +3,7 @@
    ========================================================================== */
 
 const { useState, useEffect, useRef } = React;
-const {
-  t,
-  formatPrice,
-  Icon,
-  Btn,
-  SectionHead,
-  Sticker,
-  ProductCard,
-} = window;
+const { t, formatPrice, Icon, Btn, SectionHead, Sticker, ProductCard } = window;
 
 const EMPTY_CUSTOMER = { name: "", phone: "", address: "" };
 
@@ -52,7 +44,9 @@ function BookingCustomerFields({ customer, errors, onChange, lang }) {
 
   return (
     <div className="book-form">
-      <div className="pdp__sub-label book-form__heading">{t(b.yourDetails, lang)}</div>
+      <div className="pdp__sub-label book-form__heading">
+        {t(b.yourDetails, lang)}
+      </div>
       {fields.map(({ key, label, type, autoComplete }) => (
         <div className="book-form__field" key={key}>
           <label className="book-form__label" htmlFor={`book-${key}`}>
@@ -86,7 +80,11 @@ function BookingCustomerFields({ customer, errors, onChange, lang }) {
             />
           )}
           {errors[key] && (
-            <span className="book-form__error" id={`book-${key}-error`} role="alert">
+            <span
+              className="book-form__error"
+              id={`book-${key}-error`}
+              role="alert"
+            >
               {errors[key]}
             </span>
           )}
@@ -507,6 +505,7 @@ function CustomisePage({ lang, cur, go }) {
   const [scent, setScent] = useState(null);
   const [look, setLook] = useState(null);
   const [customer, setCustomer] = useState(EMPTY_CUSTOMER);
+  const [customDescription, setCustomDescription] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [preparing, setPreparing] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -540,6 +539,12 @@ function CustomisePage({ lang, cur, go }) {
       scent: !!scent,
       look: !!look,
     });
+    if (!customDescription.trim()) {
+      errors.customDescription =
+        lang === "en"
+          ? "Please describe your custom design."
+          : "يرجى وصف التصميم الذي تريده.";
+    }
     setFieldErrors(errors);
     if (Object.keys(errors).length) return;
 
@@ -573,6 +578,10 @@ function CustomisePage({ lang, cur, go }) {
         {
           label: t(bk.look, lang),
           value: t(lookLabel, lang),
+        },
+        {
+          label: lang === "en" ? "Custom Description" : "وصف التصميم",
+          value: customDescription.trim(),
         },
         {
           label: t(bk.estimatedPrice, lang),
@@ -687,6 +696,47 @@ function CustomisePage({ lang, cur, go }) {
             {fieldErrors.look && (
               <span className="book-form__error cz__error" role="alert">
                 {fieldErrors.look}
+              </span>
+            )}
+          </div>
+
+          <div className="cz__step">
+            <div className="cz__head">
+              <span className="cz__no">04</span>
+              <h3>
+                {lang === "en"
+                  ? "Describe your custom design"
+                  : "اوصف التصميم الذي تريده"}
+              </h3>
+            </div>
+
+            <textarea
+              className={`book-form__textarea ${
+                fieldErrors.customDescription ? "is-error" : ""
+              }`}
+              rows={6}
+              placeholder={
+                lang === "en"
+                  ? "Describe your idea, colors, theme, inspiration, references, special requests..."
+                  : "اشرح بالتفصيل الشكل الذي تريده، الألوان، الثيم، الأفكار، أو أي ملاحظات خاصة..."
+              }
+              value={customDescription}
+              onChange={(e) => {
+                setCustomDescription(e.target.value);
+
+                if (fieldErrors.customDescription) {
+                  setFieldErrors((prev) => {
+                    const next = { ...prev };
+                    delete next.customDescription;
+                    return next;
+                  });
+                }
+              }}
+            />
+
+            {fieldErrors.customDescription && (
+              <span className="book-form__error cz__error">
+                {fieldErrors.customDescription}
               </span>
             )}
           </div>

@@ -62,32 +62,33 @@ function Hero({ lang, cur, go }) {
             </Btn>
           </div>
         </div>
-        <div className="hero__photo">
-          <image-slot
-            id="hero-main"
-            shape="rect"
-            src="assets/hero-berry-bliss.jpg"
-            fit="cover"
-            placeholder={lang === "en" ? "drop a hero photo" : "اسحبي صورة"}
-            style={{ width: "100%", height: "100%", display: "block" }}
-          ></image-slot>
-          <Sticker
-            variant="green"
-            shape="round"
-            rot={-10}
-            className="hero__st hero__st--1"
-          >
-            <span>{lang === "en" ? "soy wax" : "شمع صويا"}</span>
-          </Sticker>
-          <Sticker
-            variant="cream"
-            shape="pill"
-            rot={6}
-            className="hero__st hero__st--2"
-          >
-            {lang === "en" ? "hand poured" : "صبّ يدوي"}
-          </Sticker>
-        </div>
+      </div>
+
+      <div className="hero__photo">
+        <image-slot
+          id="hero-main"
+          shape="rect"
+          src="assets/hero-berry-bliss.jpg"
+          fit="cover"
+          placeholder={lang === "en" ? "drop a hero photo" : "اسحبي صورة"}
+          style={{ width: "100%", height: "100%", display: "block" }}
+        ></image-slot>
+        <Sticker
+          variant="green"
+          shape="round"
+          rot={-10}
+          className="hero__st hero__st--1"
+        >
+          <span>{lang === "en" ? "soy wax" : "شمع صويا"}</span>
+        </Sticker>
+        <Sticker
+          variant="cream"
+          shape="pill"
+          rot={6}
+          className="hero__st hero__st--2"
+        >
+          {lang === "en" ? "hand poured" : "صبّ يدوي"}
+        </Sticker>
       </div>
     </header>
   );

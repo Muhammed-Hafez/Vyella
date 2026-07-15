@@ -624,7 +624,6 @@ html[dir="rtl"] .nav__links a {
   padding: 72px 0 96px;
   text-align: center;
   min-height: 100vh;
-  display: flex;
   align-items: center;
 }
 .hero__inner {
@@ -697,21 +696,28 @@ html[dir="rtl"] .hero__sub {
 
 .hero__photo {
   position: relative;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
   margin-top: 32px;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--media-bg);
   box-shadow: var(--shadow-lg);
+
   opacity: 0;
   transform: translateY(40px);
   pointer-events: none;
+
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
+}
+
+@media (max-width: 768px) {
+  .hero__photo {
+    width: 100%;
+    margin-inline: 0;
+    border-radius: 0;
+  }
 }
 
 .hero.scrolled .hero__photo {
@@ -2590,6 +2596,7 @@ html[dir="rtl"] .book-form__input {
   resize: vertical;
   min-height: 88px;
   line-height: 1.5;
+  width: 100%;
 }
 .book-form__error {
   font-size: 12.5px;
