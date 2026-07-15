@@ -165,7 +165,7 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
     setCopying(false);
 
     setTimeout(() => {
-      window.open(instagramUrl, "_blank", "noopener,noreferrer");
+      window.location.href = instagramUrl;
     }, 1000);
   };
 
