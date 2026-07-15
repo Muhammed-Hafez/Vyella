@@ -324,14 +324,21 @@ window.VyellaContent = {
     },
   ],
 
-  /* single size — 3 oz / 85 g, flat price (delta 0) */
+  /* product sizes */
   sizes: [
     {
       key: "classic",
-      label: { en: "Classic", ar: "الحجم" },
+      label: { en: "Classic", ar: "كلاسيك" },
       oz: "3 oz / 85g",
       hrs: "15–20",
       delta: 0,
+    },
+    {
+      key: "four",
+      label: { en: "4 oz", ar: "٤ أونصة" },
+      oz: "4 oz / 113g",
+      hrs: "20–25",
+      delta: 10,
     },
   ],
 
@@ -344,10 +351,10 @@ window.VyellaContent = {
     chooseSize: { en: "choose your size", ar: "اختاري الحجم" },
     burnTime: { en: "burn time", ar: "مدة الاشتعال" },
     quantity: { en: "quantity", ar: "الكمية" },
-    reserve: { en: "reserve through this page", ar: "احجزي من خلال الصفحة" },
+    reserve: { en: "book", ar: "احجز" },
     reserveNote: {
-      en: "we'll confirm your order on whatsapp within a few hours.",
-      ar: "هنأكد طلبك على واتساب خلال ساعات قليلة.",
+      en: "we'll confirm your order on instagram within a few hours.",
+      ar: "هنأكد طلبك على انستغرام خلال ساعات قليلة.",
     },
     customizeToggle: {
       en: "make it custom instead",
@@ -398,7 +405,44 @@ window.VyellaContent = {
         },
       },
     ],
-    cta: { en: "start your custom candle", ar: "ابدء شمعتك المخصّصة" },
+    cta: { en: "book your custom candle", ar: "احجز شمعتك المخصّصة" },
+  },
+
+  /* ============================ BOOKING ============================ */
+  booking: {
+    yourDetails: { en: "your details", ar: "بياناتك" },
+    fullName: { en: "full name", ar: "الاسم الكامل" },
+    phone: { en: "phone number", ar: "رقم الهاتف" },
+    address: { en: "address", ar: "العنوان" },
+    required: { en: "required", ar: "مطلوب" },
+    customerInfo: { en: "customer information", ar: "بيانات العميل" },
+    orderInfo: { en: "order information", ar: "تفاصيل الطلب" },
+    customInfo: { en: "customisation", ar: "التخصيص" },
+    product: { en: "product", ar: "المنتج" },
+    size: { en: "size", ar: "الحجم" },
+    quantity: { en: "quantity", ar: "الكمية" },
+    scent: { en: "scent", ar: "الريحة" },
+    look: { en: "look", ar: "الشكل" },
+    totalPrice: { en: "total price", ar: "السعر الإجمالي" },
+    estimatedPrice: { en: "estimated price", ar: "السعر التقديري" },
+    confirmTitle: { en: "confirm your booking", ar: "تأكيد الحجز" },
+    confirmSub: {
+      en: "review your details below, then copy and send via instagram.",
+      ar: "راجعي التفاصيل، انسخيها، وابعتيها على انستغرام.",
+    },
+    copyOrder: { en: "copy order", ar: "انسخ الطلب" },
+    copySuccess: { en: "copied!", ar: "تم النسخ!" },
+    confirmInstagram: { en: "confirm via instagram", ar: "أكد عبر انستغرام" },
+    preparing: { en: "preparing your order…", ar: "جاري تجهيز طلبك…" },
+    close: { en: "close", ar: "إغلاق" },
+    errors: {
+      name: { en: "please enter your full name", ar: "من فضلك أدخلي اسمك الكامل" },
+      phone: { en: "please enter your phone number", ar: "من فضلك أدخلي رقم هاتفك" },
+      phoneInvalid: { en: "please enter a valid phone number", ar: "من فضلك أدخلي رقم هاتف صحيح" },
+      address: { en: "please enter your address", ar: "من فضلك أدخلي عنوانك" },
+      scent: { en: "please choose a scent", ar: "من فضلك اختاري الريحة" },
+      look: { en: "please choose a look", ar: "من فضلك اختاري الشكل" },
+    },
   },
 
   /* ============================ 5 · PROCESS / STEPS ============================ */
@@ -618,6 +662,7 @@ window.VyellaContent = {
   /* social links */
   social: {
     instagram: "https://www.instagram.com/vyella.co/",
+    instagramDm: "https://ig.me/m/vyella.co",
     tiktok: "https://www.tiktok.com/@vyella",
     pinterest: "https://www.pinterest.com/vyellaco",
   },

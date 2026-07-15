@@ -1,38 +1,249 @@
 /* ============================================================================
-   Vyella® — Product detail page + Customise page
+   Vyella® — Product detail page + Customise page + booking flow
    ========================================================================== */
 
-const { useState, useEffect, useMemo } = React;
+const { useState, useEffect, useRef } = React;
 const {
   t,
   formatPrice,
   Icon,
-  SocialIcons,
   Btn,
   SectionHead,
   Sticker,
-  Price,
   ProductCard,
-  PROD_POS,
 } = window;
+
+const EMPTY_CUSTOMER = { name: "", phone: "", address: "" };
+
+function validateCustomer(fields, lang, extra = {}) {
+  const b = window.VyellaContent.booking.errors;
+  const errors = {};
+  if (!fields.name.trim()) errors.name = t(b.name, lang);
+  if (!fields.phone.trim()) errors.phone = t(b.phone, lang);
+  else if (!/^[\d\s+\-().]{7,}$/.test(fields.phone.trim()))
+    errors.phone = t(b.phoneInvalid, lang);
+  if (!fields.address.trim()) errors.address = t(b.address, lang);
+  if (extra.scent === false) errors.scent = t(b.scent, lang);
+  if (extra.look === false) errors.look = t(b.look, lang);
+  return errors;
+}
+
+function buildCopyText(sections, lang) {
+  return sections
+    .flatMap(({ items }) =>
+      items.map(({ label, value }) => `${label}:\n${value}`),
+    )
+    .join("\n\n");
+}
+
+/* ---- customer form ---- */
+function BookingCustomerFields({ customer, errors, onChange, lang }) {
+  const b = window.VyellaContent.booking;
+  const fields = [
+    { key: "name", label: b.fullName, type: "text", autoComplete: "name" },
+    { key: "phone", label: b.phone, type: "tel", autoComplete: "tel" },
+    {
+      key: "address",
+      label: b.address,
+      type: "textarea",
+      autoComplete: "street-address",
+    },
+  ];
+
+  return (
+    <div className="book-form">
+      <div className="pdp__sub-label book-form__heading">{t(b.yourDetails, lang)}</div>
+      {fields.map(({ key, label, type, autoComplete }) => (
+        <div className="book-form__field" key={key}>
+          <label className="book-form__label" htmlFor={`book-${key}`}>
+            {t(label, lang)}
+            <span className="book-form__req" aria-hidden="true">
+              *
+            </span>
+            <span className="visually-hidden">{t(b.required, lang)}</span>
+          </label>
+          {type === "textarea" ? (
+            <textarea
+              id={`book-${key}`}
+              className={`book-form__input book-form__textarea ${errors[key] ? "is-error" : ""}`}
+              rows={3}
+              value={customer[key]}
+              onChange={(e) => onChange(key, e.target.value)}
+              autoComplete={autoComplete}
+              aria-invalid={!!errors[key]}
+              aria-describedby={errors[key] ? `book-${key}-error` : undefined}
+            />
+          ) : (
+            <input
+              id={`book-${key}`}
+              type={type}
+              className={`book-form__input ${errors[key] ? "is-error" : ""}`}
+              value={customer[key]}
+              onChange={(e) => onChange(key, e.target.value)}
+              autoComplete={autoComplete}
+              aria-invalid={!!errors[key]}
+              aria-describedby={errors[key] ? `book-${key}-error` : undefined}
+            />
+          )}
+          {errors[key] && (
+            <span className="book-form__error" id={`book-${key}-error`} role="alert">
+              {errors[key]}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---- confirmation modal ---- */
+function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
+  const b = window.VyellaContent.booking;
+  const dialogRef = useRef(null);
+  const [copying, setCopying] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      setCopied(false);
+      setCopying(false);
+      return;
+    }
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const handleCopy = async () => {
+    setCopying(true);
+    try {
+      await navigator.clipboard.writeText(copyText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (_) {
+      const ta = document.createElement("textarea");
+      ta.value = copyText;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+    setCopying(false);
+  };
+
+  const instagramUrl = window.VyellaContent.social.instagramDm;
+
+  return (
+    <div
+      className="book-modal"
+      role="presentation"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="book-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="book-modal-title"
+        tabIndex={-1}
+        ref={dialogRef}
+      >
+        <button
+          type="button"
+          className="book-modal__close"
+          onClick={onClose}
+          aria-label={t(b.close, lang)}
+        >
+          <Icon name="close" size={20} />
+        </button>
+
+        <h2 className="book-modal__title" id="book-modal-title">
+          {t(b.confirmTitle, lang)}
+        </h2>
+        <p className="book-modal__sub">{t(b.confirmSub, lang)}</p>
+
+        <div className="book-modal__body">
+          {sections.map(({ title, items }) => (
+            <div className="book-modal__section" key={title}>
+              <h3 className="book-modal__section-title">{title}</h3>
+              <dl className="book-modal__list">
+                {items.map(({ label, value }) => (
+                  <div className="book-modal__row" key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <div className="book-modal__actions">
+          <Btn
+            as="button"
+            variant="primary"
+            size="lg"
+            className="book-modal__copy"
+            onClick={handleCopy}
+            disabled={copying}
+            icon={copied ? "check" : undefined}
+          >
+            {copied ? t(b.copySuccess, lang) : t(b.copyOrder, lang)}
+          </Btn>
+          <Btn
+            as="a"
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener"
+            variant="outline"
+            size="lg"
+            icon="instagram"
+            className="book-modal__instagram"
+          >
+            {t(b.confirmInstagram, lang)}
+          </Btn>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ---------------- PRODUCT DETAIL ---------------- */
 function ProductPage({ id, lang, cur, go }) {
   const C = window.VyellaContent;
   const d = C.detail;
+  const bk = C.booking;
   const all = C.products;
   const p = all.find((x) => x.id === id);
-  const idx = all.findIndex((x) => x.id === id);
 
   const [sizeKey, setSizeKey] = useState("classic");
   const [qty, setQty] = useState(1);
-  const [custom, setCustom] = useState(false);
+  const [customer, setCustomer] = useState(EMPTY_CUSTOMER);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [preparing, setPreparing] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSizeKey("classic");
     setQty(1);
-    setCustom(false);
+    setCustomer(EMPTY_CUSTOMER);
+    setFieldErrors({});
+    setModalOpen(false);
   }, [id]);
 
   if (!p) {
@@ -62,16 +273,56 @@ function ProductPage({ id, lang, cur, go }) {
         )
       : related;
 
-  const waMsg = encodeURIComponent(
-    lang === "en"
-      ? `Hi Vyella! I'd like to reserve: ${t(p.name, "en")} (${t(size.label, "en")} / ${size.oz}) ×${qty}${custom ? " — customised" : ""}.`
-      : `أهلاً فييلا! حابة أحجز: ${t(p.name, "ar")} (${t(size.label, "ar")} / ${size.oz}) ×${qty}${custom ? " — مخصّصة" : ""}.`,
-  );
-  const waLink =
-    "https://wa.me/" +
-    C.contact.phone.replace(/[^0-9]/g, "") +
-    "?text=" +
-    waMsg;
+  const updateCustomer = (key, value) => {
+    setCustomer((prev) => ({ ...prev, [key]: value }));
+    if (fieldErrors[key]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      });
+    }
+  };
+
+  const handleBook = () => {
+    const errors = validateCustomer(customer, lang);
+    setFieldErrors(errors);
+    if (Object.keys(errors).length) return;
+
+    setPreparing(true);
+    setTimeout(() => {
+      setPreparing(false);
+      setModalOpen(true);
+    }, 450);
+  };
+
+  const modalSections = [
+    {
+      title: t(bk.customerInfo, lang),
+      items: [
+        { label: t(bk.fullName, lang), value: customer.name.trim() },
+        { label: t(bk.phone, lang), value: customer.phone.trim() },
+        { label: t(bk.address, lang), value: customer.address.trim() },
+      ],
+    },
+    {
+      title: t(bk.orderInfo, lang),
+      items: [
+        { label: t(bk.product, lang), value: t(p.name, lang) },
+        {
+          label: t(bk.size, lang),
+          value: `${t(size.label, lang)} (${size.oz})`,
+        },
+        { label: t(bk.quantity, lang), value: String(qty) },
+        {
+          label: t(bk.totalPrice, lang),
+          value: formatPrice(total, cur, lang),
+        },
+      ],
+    },
+  ];
+
+  const copyText = buildCopyText(modalSections, lang);
 
   return (
     <main className="pdp">
@@ -82,7 +333,6 @@ function ProductPage({ id, lang, cur, go }) {
       </div>
 
       <div className="wrap pdp__grid">
-        {/* media */}
         <div className="pdp__media">
           <div className="pdp__photo">
             <image-slot
@@ -127,7 +377,6 @@ function ProductPage({ id, lang, cur, go }) {
           </div>
         </div>
 
-        {/* info */}
         <div className="pdp__info">
           <div className="eyebrow pdp__fam">
             {t(C.shop.scentFamilies[p.family], lang)}
@@ -138,7 +387,6 @@ function ProductPage({ id, lang, cur, go }) {
 
           <p className="pdp__desc">{t(p.desc, lang)}</p>
 
-          {/* scent notes */}
           <div className="pdp__notes">
             <div className="pdp__sub-label">{t(d.scentNotes, lang)}</div>
             <div className="pdp__notes-row">
@@ -151,13 +399,13 @@ function ProductPage({ id, lang, cur, go }) {
             </div>
           </div>
 
-          {/* size */}
           <div className="pdp__block">
             <div className="pdp__sub-label">{t(d.chooseSize, lang)}</div>
             <div className="pdp__sizes">
               {C.sizes.map((s) => (
                 <button
                   key={s.key}
+                  type="button"
                   className={`pdp__size ${sizeKey === s.key ? "is-active" : ""}`}
                   onClick={() => setSizeKey(s.key)}
                 >
@@ -173,54 +421,51 @@ function ProductPage({ id, lang, cur, go }) {
             </div>
           </div>
 
-          {/* qty + reserve */}
+          <BookingCustomerFields
+            customer={customer}
+            errors={fieldErrors}
+            onChange={updateCustomer}
+            lang={lang}
+          />
+
           <div className="pdp__buy">
             <div className="pdp__qty">
               <button
+                type="button"
                 onClick={() => setQty(Math.max(1, qty - 1))}
                 aria-label="decrease"
               >
                 <Icon name="minus" size={18} />
               </button>
               <span>{lang === "ar" ? qty.toLocaleString("ar-EG") : qty}</span>
-              <button onClick={() => setQty(qty + 1)} aria-label="increase">
+              <button
+                type="button"
+                onClick={() => setQty(qty + 1)}
+                aria-label="increase"
+              >
                 <Icon name="plus" size={18} />
               </button>
             </div>
-            <a
+            <button
+              type="button"
               className="btn btn--primary btn--lg pdp__reserve"
-              href="https://www.instagram.com/vyella.co/"
-              target="_blank"
-              rel="noopener"
+              onClick={handleBook}
+              disabled={preparing}
+              aria-busy={preparing}
             >
-              <Icon name="instagram" size={20} />
-              <span>
-                {t(d.reserve, lang)} · {formatPrice(total, cur, lang)}
-              </span>
-            </a>
+              {preparing ? (
+                <span>{t(bk.preparing, lang)}</span>
+              ) : (
+                <span>
+                  {t(d.reserve, lang)} · {formatPrice(total, cur, lang)}
+                </span>
+              )}
+            </button>
           </div>
           <p className="pdp__reserve-note">{t(d.reserveNote, lang)}</p>
-
-          {/* customise toggle */}
-          <div className={`pdp__custom ${custom ? "is-on" : ""}`}>
-            <button
-              className="pdp__custom-toggle"
-              onClick={() => setCustom(!custom)}
-            >
-              <span className="pdp__custom-check">
-                {custom && <Icon name="check" size={15} />}
-              </span>
-              <span>{t(d.customizeToggle, lang)}</span>
-              <Icon name="sparkle" size={16} />
-            </button>
-            {custom && (
-              <p className="pdp__custom-hint">{t(d.customizeHint, lang)}</p>
-            )}
-          </div>
         </div>
       </div>
 
-      {/* related */}
       <div className="wrap pdp__related">
         <h2 className="pdp__related-title">{t(d.youMayLike, lang)}</h2>
         <div className="shop__grid">
@@ -236,6 +481,14 @@ function ProductPage({ id, lang, cur, go }) {
           ))}
         </div>
       </div>
+
+      <BookingConfirmModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        sections={modalSections}
+        copyText={copyText}
+        lang={lang}
+      />
     </main>
   );
 }
@@ -244,6 +497,8 @@ function ProductPage({ id, lang, cur, go }) {
 function CustomisePage({ lang, cur, go }) {
   const C = window.VyellaContent;
   const cz = C.customize;
+  const bk = C.booking;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -251,6 +506,10 @@ function CustomisePage({ lang, cur, go }) {
   const [size, setSize] = useState("classic");
   const [scent, setScent] = useState(null);
   const [look, setLook] = useState(null);
+  const [customer, setCustomer] = useState(EMPTY_CUSTOMER);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [preparing, setPreparing] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const scents = ["sweet", "warm", "fruity", "rich"];
   const looks = [
@@ -263,17 +522,67 @@ function CustomisePage({ lang, cur, go }) {
   const base = 50;
   const sz = C.sizes.find((s) => s.key === size);
   const est = base + sz.delta;
+  const lookLabel = look ? looks.find((l) => l.key === look)?.label : null;
 
-  const waMsg = encodeURIComponent(
-    lang === "en"
-      ? `Hi Vyella! Custom candle: size ${t(sz.label, "en")} (${sz.oz}), scent ${scent ? t(C.shop.scentFamilies[scent], "en") : "TBD"}, look ${look ? t(looks.find((l) => l.key === look).label, "en") : "TBD"}.`
-      : `أهلاً فييلا! شمعة مخصّصة: الحجم ${t(sz.label, "ar")} (${sz.oz})، الريحة ${scent ? t(C.shop.scentFamilies[scent], "ar") : "هتتحدد"}، الشكل ${look ? t(looks.find((l) => l.key === look).label, "ar") : "هيتحدد"}.`,
-  );
-  const waLink =
-    "https://wa.me/" +
-    C.contact.phone.replace(/[^0-9]/g, "") +
-    "?text=" +
-    waMsg;
+  const updateCustomer = (key, value) => {
+    setCustomer((prev) => ({ ...prev, [key]: value }));
+    if (fieldErrors[key]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      });
+    }
+  };
+
+  const handleBook = () => {
+    const errors = validateCustomer(customer, lang, {
+      scent: !!scent,
+      look: !!look,
+    });
+    setFieldErrors(errors);
+    if (Object.keys(errors).length) return;
+
+    setPreparing(true);
+    setTimeout(() => {
+      setPreparing(false);
+      setModalOpen(true);
+    }, 450);
+  };
+
+  const modalSections = [
+    {
+      title: t(bk.customerInfo, lang),
+      items: [
+        { label: t(bk.fullName, lang), value: customer.name.trim() },
+        { label: t(bk.phone, lang), value: customer.phone.trim() },
+        { label: t(bk.address, lang), value: customer.address.trim() },
+      ],
+    },
+    {
+      title: t(bk.customInfo, lang),
+      items: [
+        {
+          label: t(bk.size, lang),
+          value: `${t(sz.label, lang)} (${sz.oz})`,
+        },
+        {
+          label: t(bk.scent, lang),
+          value: t(C.shop.scentFamilies[scent], lang),
+        },
+        {
+          label: t(bk.look, lang),
+          value: t(lookLabel, lang),
+        },
+        {
+          label: t(bk.estimatedPrice, lang),
+          value: formatPrice(est, cur, lang),
+        },
+      ],
+    },
+  ];
+
+  const copyText = buildCopyText(modalSections, lang);
 
   return (
     <main className="custom-page">
@@ -292,7 +601,6 @@ function CustomisePage({ lang, cur, go }) {
         />
 
         <div className="cz">
-          {/* step 1 size */}
           <div className="cz__step">
             <div className="cz__head">
               <span className="cz__no">01</span>
@@ -302,6 +610,7 @@ function CustomisePage({ lang, cur, go }) {
               {C.sizes.map((s) => (
                 <button
                   key={s.key}
+                  type="button"
                   className={`cz__opt ${size === s.key ? "is-active" : ""}`}
                   onClick={() => setSize(s.key)}
                 >
@@ -313,7 +622,7 @@ function CustomisePage({ lang, cur, go }) {
               ))}
             </div>
           </div>
-          {/* step 2 scent */}
+
           <div className="cz__step">
             <div className="cz__head">
               <span className="cz__no">02</span>
@@ -323,8 +632,18 @@ function CustomisePage({ lang, cur, go }) {
               {scents.map((s) => (
                 <button
                   key={s}
+                  type="button"
                   className={`cz__opt ${scent === s ? "is-active" : ""}`}
-                  onClick={() => setScent(s)}
+                  onClick={() => {
+                    setScent(s);
+                    if (fieldErrors.scent) {
+                      setFieldErrors((prev) => {
+                        const next = { ...prev };
+                        delete next.scent;
+                        return next;
+                      });
+                    }
+                  }}
                 >
                   <span className="cz__opt-name">
                     {t(C.shop.scentFamilies[s], lang)}
@@ -332,8 +651,13 @@ function CustomisePage({ lang, cur, go }) {
                 </button>
               ))}
             </div>
+            {fieldErrors.scent && (
+              <span className="book-form__error cz__error" role="alert">
+                {fieldErrors.scent}
+              </span>
+            )}
           </div>
-          {/* step 3 look */}
+
           <div className="cz__step">
             <div className="cz__head">
               <span className="cz__no">03</span>
@@ -343,16 +667,37 @@ function CustomisePage({ lang, cur, go }) {
               {looks.map((l) => (
                 <button
                   key={l.key}
+                  type="button"
                   className={`cz__opt ${look === l.key ? "is-active" : ""}`}
-                  onClick={() => setLook(l.key)}
+                  onClick={() => {
+                    setLook(l.key);
+                    if (fieldErrors.look) {
+                      setFieldErrors((prev) => {
+                        const next = { ...prev };
+                        delete next.look;
+                        return next;
+                      });
+                    }
+                  }}
                 >
                   <span className="cz__opt-name">{t(l.label, lang)}</span>
                 </button>
               ))}
             </div>
+            {fieldErrors.look && (
+              <span className="book-form__error cz__error" role="alert">
+                {fieldErrors.look}
+              </span>
+            )}
           </div>
 
-          {/* summary */}
+          <BookingCustomerFields
+            customer={customer}
+            errors={fieldErrors}
+            onChange={updateCustomer}
+            lang={lang}
+          />
+
           <div className="cz__summary">
             <div className="cz__est">
               <span className="cz__est-label">
@@ -362,18 +707,30 @@ function CustomisePage({ lang, cur, go }) {
                 {formatPrice(est, cur, lang)}
               </span>
             </div>
-            <a
+            <button
+              type="button"
               className="btn btn--primary btn--lg"
-              href={waLink}
-              target="_blank"
-              rel="noopener"
+              onClick={handleBook}
+              disabled={preparing}
+              aria-busy={preparing}
             >
-              <Icon name="whatsapp" size={20} />
-              <span>{t(cz.cta, lang)}</span>
-            </a>
+              {preparing ? (
+                <span>{t(bk.preparing, lang)}</span>
+              ) : (
+                <span>{t(cz.cta, lang)}</span>
+              )}
+            </button>
           </div>
         </div>
       </div>
+
+      <BookingConfirmModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        sections={modalSections}
+        copyText={copyText}
+        lang={lang}
+      />
     </main>
   );
 }
