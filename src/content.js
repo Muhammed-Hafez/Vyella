@@ -48,7 +48,7 @@ window.VyellaContent = {
   hero: {
     wordmark: "vyella",
     slogan1: { en: "too pretty to burn.", ar: "أحلى من إنها تتولّع." },
-    slogan2: { en: "burn it anyway.", ar: "ولّعها برضه." },
+    slogan2: { en: "burn itanyway.", ar: "ولّعها برضه." },
     sub: {
       en: "Handmade dessert candles, poured by hand in Dubai. Natural soy & gel wax, shipped across the UAE and Egypt.",
       ar: "شموع ديزرت هاند ميد، مصبوبة بإيدينا في دبي. شمع صويا وجل طبيعي، وشحن لكل الإمارات ومصر.",
@@ -335,7 +335,7 @@ window.VyellaContent = {
     },
     {
       key: "four",
-      label: { en: "4 oz", ar: "٤ أونصة" },
+      label: { en: "Grand", ar: "جراند" },
       oz: "4 oz / 113g",
       hrs: "20–25",
       delta: 10,
@@ -436,9 +436,18 @@ window.VyellaContent = {
     preparing: { en: "preparing your order…", ar: "جاري تجهيز طلبك…" },
     close: { en: "close", ar: "إغلاق" },
     errors: {
-      name: { en: "please enter your full name", ar: "من فضلك أدخلي اسمك الكامل" },
-      phone: { en: "please enter your phone number", ar: "من فضلك أدخلي رقم هاتفك" },
-      phoneInvalid: { en: "please enter a valid phone number", ar: "من فضلك أدخلي رقم هاتف صحيح" },
+      name: {
+        en: "please enter your full name",
+        ar: "من فضلك أدخلي اسمك الكامل",
+      },
+      phone: {
+        en: "please enter your phone number",
+        ar: "من فضلك أدخلي رقم هاتفك",
+      },
+      phoneInvalid: {
+        en: "please enter a valid phone number",
+        ar: "من فضلك أدخلي رقم هاتف صحيح",
+      },
       address: { en: "please enter your address", ar: "من فضلك أدخلي عنوانك" },
       scent: { en: "please choose a scent", ar: "من فضلك اختاري الريحة" },
       look: { en: "please choose a look", ar: "من فضلك اختاري الشكل" },

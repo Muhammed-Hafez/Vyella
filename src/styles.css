@@ -2597,6 +2597,24 @@ html[dir="rtl"] .book-form__input {
   min-height: 88px;
   line-height: 1.5;
   width: 100%;
+  border: 2px solid var(--line); /* أو اللون المناسب عندك */
+  border-radius: var(--radius-md);
+  background: var(--vy-paper);
+  cursor: text;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    border-color 160ms,
+    box-shadow 160ms,
+    transform 160ms,
+    background 160ms;
+}
+
+.book-form__textarea:focus {
+  outline: none;
+  border-color: var(--vy-pink);
 }
 .book-form__error {
   font-size: 12.5px;

@@ -142,14 +142,34 @@ function FAQ({ lang }) {
 /* ---------------- INSTAGRAM ---------------- */
 function Instagram({ lang }) {
   const ig = window.VyellaContent.ig;
+
   const imgs = [
-    "assets/prod-croissant.png",
-    "assets/prod-raspberry-cheesecake.png",
-    "assets/prod-strawberry-cake.png",
-    "assets/prod-tiramisu-parfait.png",
-    "assets/prod-ube-parfait.png",
-    "assets/prod-iced-coffee.png",
+    {
+      src: "assets/prod-croissant.png",
+      link: "https://www.instagram.com/reel/DZIQ-JvsKXN/?igsh=MjVqMmZ5bGdjNm8w",
+    },
+    {
+      src: "assets/prod-raspberry-cheesecake.png",
+      link: "https://www.instagram.com/vyella.co",
+    },
+    {
+      src: "assets/prod-strawberry-cake.png",
+      link: "https://www.instagram.com/reel/DZF1W_hMdae/?igsh=c3Nsc3lzZ3c3MmZh",
+    },
+    {
+      src: "assets/prod-tiramisu-parfait.png",
+      link: "https://www.instagram.com/reel/DZNYsyiMbqP/?igsh=MW02ZGs4Z3JmOXBxNA==",
+    },
+    {
+      src: "assets/prod-ube-parfait.png",
+      link: "https://www.instagram.com/reel/Dasi7UtM9vY/?igsh=MTBzaXZ1bjh1cDluYQ==",
+    },
+    {
+      src: "assets/prod-iced-coffee.png",
+      link: "https://www.instagram.com/reel/DZVernWMC5W/?igsh=aHNrZmxoem9zNW9p",
+    },
   ];
+
   return (
     <section className="section ig" id="instagram">
       <div className="wrap">
@@ -158,8 +178,10 @@ function Instagram({ lang }) {
             <div className="eyebrow">{t(ig.eyebrow, lang)}</div>
             <h2 className="ig__title">{t(ig.title, lang)}</h2>
           </div>
+
           <div className="ig__right">
             <p className="ig__sub">{t(ig.sub, lang)}</p>
+
             <Btn
               as="a"
               href={window.VyellaContent.social.instagram}
@@ -173,20 +195,21 @@ function Instagram({ lang }) {
             </Btn>
           </div>
         </div>
+
         <div className="ig__grid">
-          {imgs.map((src, i) => (
+          {imgs.map((item, i) => (
             <a
               className="ig__tile"
               key={i}
-              href={window.VyellaContent.social.instagram}
+              href={item.link}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               aria-label="Instagram post"
             >
               <image-slot
                 id={`ig-${i}`}
                 shape="rect"
-                src={src}
+                src={item.src}
                 fit="contain"
                 placeholder="ig"
                 style={{
@@ -196,6 +219,7 @@ function Instagram({ lang }) {
                   pointerEvents: "none",
                 }}
               ></image-slot>
+
               <span className="ig__overlay">
                 <Icon name="instagram" size={26} />
               </span>
