@@ -402,12 +402,13 @@ function ProductPage({ id, lang, cur, go }) {
           <div className="pdp__notes">
             <div className="pdp__sub-label">{t(d.scentNotes, lang)}</div>
             <div className="pdp__notes-row">
-              {["top", "heart", "base"].map((k) => (
-                <div className="pdp__note" key={k}>
-                  <span className="pdp__note-k">{t(d[k], lang)}</span>
-                  <span className="pdp__note-v">{t(p.notes[k], lang)}</span>
-                </div>
-              ))}
+              <div className="pdp__note">
+                <span className="pdp__note-k">
+                  {lang === "en" ? "Scent Notes" : "النفحات العطرية"}
+                </span>
+
+                <span className="pdp__note-v">{t(p.notes, lang)}</span>
+              </div>
             </div>
           </div>
 
