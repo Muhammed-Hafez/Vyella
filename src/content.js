@@ -335,7 +335,7 @@ window.VyellaContent = {
     },
     {
       key: "four",
-      label: { en: "Grand", ar: "جراند" },
+      label: { en: "Grand", ar: "كبير" },
       oz: "4 oz / 113g",
       hrs: "20–25",
       delta: 10,

@@ -2784,6 +2784,38 @@ html[dir="rtl"] .book-modal__row dd {
   cursor: wait;
 }
 
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  z-index: 99999;
+
+  padding: 14px 22px;
+  border-radius: 999px;
+
+  background: #222;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+
+  animation: toastIn 0.3s ease;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .announce__track {

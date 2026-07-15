@@ -100,6 +100,15 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
   const dialogRef = useRef(null);
   const [copying, setCopying] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [toast, setToast] = useState("");
+
+  const showToast = (message) => {
+    setToast(message);
+
+    setTimeout(() => {
+      setToast("");
+    }, 3000);
+  };
 
   useEffect(() => {
     if (!open) {
@@ -121,8 +130,7 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
 
   if (!open) return null;
 
-  const handleCopy = async () => {
-    setCopying(true);
+  const copyOrder = async () => {
     try {
       await navigator.clipboard.writeText(copyText);
       setCopied(true);
@@ -139,10 +147,27 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
-    setCopying(false);
   };
 
   const instagramUrl = window.VyellaContent.social.instagramDm;
+
+  const handleInstagram = async () => {
+    setCopying(true);
+
+    await copyOrder();
+
+    showToast(
+      lang === "en"
+        ? "Order copied! Paste it into the Instagram chat."
+        : "تم نسخ بيانات الطلب، الصقها في محادثة إنستجرام.",
+    );
+
+    setCopying(false);
+
+    setTimeout(() => {
+      window.open(instagramUrl, "_blank", "noopener,noreferrer");
+    }, 1000);
+  };
 
   return (
     <div
@@ -193,29 +218,18 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
         <div className="book-modal__actions">
           <Btn
             as="button"
-            variant="primary"
-            size="lg"
-            className="book-modal__copy"
-            onClick={handleCopy}
-            disabled={copying}
-            icon={copied ? "check" : undefined}
-          >
-            {copied ? t(b.copySuccess, lang) : t(b.copyOrder, lang)}
-          </Btn>
-          <Btn
-            as="a"
-            href={instagramUrl}
-            target="_blank"
-            rel="noopener"
             variant="outline"
             size="lg"
             icon="instagram"
             className="book-modal__instagram"
+            onClick={handleInstagram}
+            disabled={copying}
           >
             {t(b.confirmInstagram, lang)}
           </Btn>
         </div>
       </div>
+      {toast && <div className="toast">{toast}</div>}
     </div>
   );
 }
