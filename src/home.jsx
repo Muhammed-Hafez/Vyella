@@ -104,7 +104,7 @@ function About({ lang }) {
           <image-slot
             id="about-studio"
             shape="rect"
-            src="assets/about-waffle.jpg"
+            src="assets/about-waffle.jpeg"
             fit="cover"
             position="50% 50%"
             placeholder={lang === "en" ? "drop a studio photo" : "اسحبي صورة"}

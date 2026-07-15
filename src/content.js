@@ -661,6 +661,6 @@ window.VyellaContent = {
     instagram: "https://www.instagram.com/vyella.co/",
     instagramDm: "https://ig.me/m/vyella.co",
     tiktok: "https://www.tiktok.com/@vyella",
-    pinterest: "https://www.pinterest.com/vyellaco",
+    pinterest: "https://pin.it/4wg0G7yiK",
   },
 };

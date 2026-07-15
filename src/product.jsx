@@ -158,15 +158,15 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
 
     showToast(
       lang === "en"
-        ? "Order copied! Paste it into the Instagram chat."
-        : "تم نسخ بيانات الطلب، الصقها في محادثة إنستجرام.",
+        ? "Order copied successfully! You will be redirected to Instagram in a moment. Simply paste the message into the chat."
+        : "تم نسخ الطلب بنجاح سيتم فتح إنستجرام خلال لحظات، فقط الصق الرسالة داخل المحادثة.",
     );
 
     setCopying(false);
 
     setTimeout(() => {
       window.location.href = instagramUrl;
-    }, 1000);
+    }, 2500);
   };
 
   return (
@@ -229,7 +229,17 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
           </Btn>
         </div>
       </div>
-      {toast && <div className="toast">{toast}</div>}
+      {toast && (
+        <div className="toast-overlay">
+          <div className="toast toast--success">
+            <div className="toast__icon">✓</div>
+            <div className="toast__content">
+              <h4>{lang === "en" ? "Order Copied!" : "تم نسخ الطلب"}</h4>
+              <p>{toast}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

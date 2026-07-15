@@ -330,23 +330,33 @@ html[dir="rtl"] .sticker {
   display: flex;
   align-items: center;
 }
+
 .announce__track {
   display: flex;
+  flex-wrap: nowrap;
+  min-width: max-content;
   white-space: nowrap;
-  animation: marquee 48s linear infinite;
+  animation: marquee-ltr 48s linear infinite;
   font-family: var(--font-mono);
   font-weight: 400;
   font-size: 11.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  will-change: transform;
 }
+
+.announce__track span {
+  flex-shrink: 0;
+}
+
 html[dir="rtl"] .announce__track {
-  animation-direction: reverse;
+  animation: marquee-rtl 48s linear infinite;
   font-family: "Cairo", sans-serif;
   letter-spacing: 0.02em;
   font-size: 13px;
 }
-@keyframes marquee {
+
+@keyframes marquee-ltr {
   from {
     transform: translateX(0);
   }
@@ -355,6 +365,14 @@ html[dir="rtl"] .announce__track {
   }
 }
 
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 /* utility bar */
 .utility {
   background: var(--page-bg);
@@ -2785,35 +2803,78 @@ html[dir="rtl"] .book-modal__row dd {
   cursor: wait;
 }
 
-.toast {
+.toast-overlay {
   position: fixed;
-  left: 50%;
-  bottom: 30px;
-  transform: translateX(-50%);
-  z-index: 99999;
-
-  padding: 14px 22px;
-  border-radius: 999px;
-
-  background: #222;
-  color: #fff;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-
-  animation: toastIn 0.3s ease;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  animation: fadeIn 0.25s ease;
 }
 
-@keyframes toastIn {
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 480px;
+  width: calc(100% - 40px);
+  padding: 22px 28px;
+  border-radius: 20px;
+  background: #fff;
+  color: #111;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+  animation: toastPop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.toast__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--vy-pink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.toast__content h4 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.toast__content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+@keyframes toastPop {
   from {
     opacity: 0;
-    transform: translate(-50%, 20px);
+    transform: scale(0.85) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
