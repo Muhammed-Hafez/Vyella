@@ -1855,6 +1855,12 @@ html[dir="rtl"] .footer__logo {
 .ig__tile {
   background: #ffffff;
 }
+
+.pdp__photo,
+.pdp__photo img,
+image-slot {
+  touch-action: pan-y;
+}
 .footer__tag {
   font-family: var(--font-script);
   font-size: 24px;
