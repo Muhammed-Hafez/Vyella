@@ -95,7 +95,14 @@ function BookingCustomerFields({ customer, errors, onChange, lang }) {
 }
 
 /* ---- confirmation modal ---- */
-function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
+function BookingConfirmModal({
+  open,
+  onClose,
+  sections,
+  copyText,
+  order,
+  lang,
+}) {
   const b = window.VyellaContent.booking;
   const dialogRef = useRef(null);
   const [copying, setCopying] = useState(false);
@@ -153,6 +160,14 @@ function BookingConfirmModal({ open, onClose, sections, copyText, lang }) {
 
   const handleInstagram = async () => {
     setCopying(true);
+
+    try {
+      await window.db.collection("orders").add(order);
+
+      console.log("Order saved");
+    } catch (err) {
+      console.error(err);
+    }
 
     await copyOrder();
 
@@ -346,6 +361,22 @@ function ProductPage({ id, lang, cur, go }) {
 
   const copyText = buildCopyText(modalSections, lang);
 
+  const order = {
+    customer: {
+      name: customer.name.trim(),
+      phone: customer.phone.trim(),
+      address: customer.address.trim(),
+    },
+    product: {
+      id: p.id,
+      name: t(p.name, lang),
+      size: t(size.label, lang),
+      quantity: qty,
+      total,
+      currency: cur,
+    },
+    lang,
+  };
   return (
     <main className="pdp">
       <div className="wrap pdp__back">
@@ -510,6 +541,7 @@ function ProductPage({ id, lang, cur, go }) {
         onClose={() => setModalOpen(false)}
         sections={modalSections}
         copyText={copyText}
+        order={order}
         lang={lang}
       />
     </main>
@@ -618,6 +650,28 @@ function CustomisePage({ lang, cur, go }) {
 
   const copyText = buildCopyText(modalSections, lang);
 
+  const order = {
+    type: "custom",
+
+    customer: {
+      name: customer.name.trim(),
+      phone: customer.phone.trim(),
+      address: customer.address.trim(),
+    },
+
+    customization: {
+      size: t(sz.label, lang),
+      scent: t(C.shop.scentFamilies[scent], lang),
+      look: t(lookLabel, lang),
+      description: customDescription.trim(),
+    },
+
+    estimatedPrice: est,
+    currency: cur,
+    lang,
+
+    createdAt: new Date().toISOString(),
+  };
   return (
     <main className="custom-page">
       <div className="wrap pdp__back">
@@ -804,6 +858,7 @@ function CustomisePage({ lang, cur, go }) {
         onClose={() => setModalOpen(false)}
         sections={modalSections}
         copyText={copyText}
+        order={order}
         lang={lang}
       />
     </main>
