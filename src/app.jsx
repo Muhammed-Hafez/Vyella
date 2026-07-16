@@ -23,13 +23,13 @@ const {
 
 /* ---- marquee ---- */
 function Marquee({ text }) {
-  const items = Array.from({ length: 6 }, (_, i) => (
-    <span key={i}>{text}</span>
-  ));
   return (
-    <div className="announce__track">
-      {items}
-      {items}
+    <div className="announce__track" aria-hidden="true">
+      {Array.from({ length: 12 }, (_, i) => (
+        <span className="announce__item" key={i}>
+          {text}
+        </span>
+      ))}
     </div>
   );
 }

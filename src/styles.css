@@ -329,48 +329,50 @@ html[dir="rtl"] .sticker {
   overflow: hidden;
   display: flex;
   align-items: center;
+  /* Marquee uses physical translateX(-50%); must stay LTR-aligned even on RTL pages. */
+  direction: ltr;
 }
 
 .announce__track {
   display: flex;
+  flex-shrink: 0;
   flex-wrap: nowrap;
   min-width: max-content;
-  white-space: nowrap;
-  animation: marquee-ltr 48s linear infinite;
   font-family: var(--font-mono);
   font-weight: 400;
   font-size: 11.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   will-change: transform;
+  white-space: nowrap;
+  direction: ltr;
+  animation: 48s linear 0s infinite normal none running marquee;
 }
 
-.announce__track span {
-  flex-shrink: 0;
+.announce__item {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding-inline-end: 3rem; /* المسافة بين كل جملة */
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-html[dir="rtl"] .announce__track {
-  animation: marquee-rtl 48s linear infinite;
+html[dir="rtl"] .announce__item {
   font-family: "Cairo", sans-serif;
-  letter-spacing: 0.02em;
   font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
-@keyframes marquee-ltr {
+@keyframes marquee {
   from {
     transform: translateX(0);
   }
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-rtl {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
   }
 }
 /* utility bar */

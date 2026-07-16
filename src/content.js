@@ -20,7 +20,7 @@ window.VyellaContent = {
   /* ---- top announcement ---- */
   announce: {
     en: "🕯  new in 2026  ·  handmade dessert candles, shipped across the GCC & Egypt  ·  reserve yours now  ·  ",
-    ar: "🕯  جديد ٢٠٢٦  ·  شموع ديزرت هاند ميد، شحن لكل دول الخليج ومصر  · احجز شمعتك دلوقتي  ·  ",
+    ar: "• جديد ٢٠٢٦ • شموع حلويات هاند ميد • شحن لكل دول الخليج ومصر • احجز شمعتك دلوقتي •",
   },
 
   /* ---- utility / nav ---- */
